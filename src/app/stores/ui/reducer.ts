@@ -1,15 +1,16 @@
 import { UiState } from "./ui.types";
 import { Action } from "@ngrx/store";
-import { RSS_SELECTED, PODCAST_SELECTED, LOAD_PODCAST_AUDIO } from "../actions";
+import { RSS_SELECTED, PODCAST_SELECTED } from "../actions";
 
-export function uiReducer(state: UiState, action:Action) {
+export function uiReducer(state: UiState = {}, action:Action) {
   switch(action.type){
     case RSS_SELECTED:
-      return Object.assign(state,{currentFeed:  action.payload});
-    case LOAD_PODCAST_AUDIO:
-      return Object.assign(state, {currentGuid: action.payload});
+      if(state.currentFeedLink != action.payload){
+        return Object.assign(state,{currentFeedLink:  action.payload, currentGuid: undefined}) as UiState;
+      }
+      return state;
     case PODCAST_SELECTED:
-      return Object.assign(state, {currentPodcast: action.payload});
+      return Object.assign(state, {currentGuid: action.payload}) as UiState;
     default:
     return state;
   }

@@ -1,8 +1,7 @@
-import { RssState, Podcast } from "../index";
+import { RssState, Podcast } from '../rss';
 
 export interface UiState {    
-    currentFeed : RssState,
-    currentPodcast : Podcast,
+    currentFeedLink? : string,
     currentGuid? : string, //CurrentListeningPodcastGuid
     listeningHistory? : {[key:string] : PlayerState}; //Guid keyed
     archive? : ArchiveState

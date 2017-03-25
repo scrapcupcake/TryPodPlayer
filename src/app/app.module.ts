@@ -36,7 +36,7 @@ const initialState = {router:{path:window.location.pathname + window.location.se
 
 const StoreImport = StoreModule.provideStore(
   compose(
-    localStorageSync(['uiState','rssStates'], true),combineReducers)
+    localStorageSync(['rssStates'], true),combineReducers) //TODO: Add uiState back in here.
     ({ rssStates: rssReducer, uiState: uiReducer, router: routerReducer }),initialState);
 
 @NgModule({

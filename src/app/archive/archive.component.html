@@ -1,5 +1,5 @@
 <section class="mainSection">
-    <header>{{feed.title}} Archives</header>
+    <header>{{feed?.title}} Archives</header>
     <main>
         <section class="previous" (click)="movePrevious()">
             <div *ngFor="let podcast of previous">{{podcast.title}}</div>

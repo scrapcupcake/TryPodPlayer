@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from "rxjs/Rx";
 import { AudioPlayerService } from "./audio-player.service";
 import { Podcast, ApplicationState, 
-  LoadPodcastAudio, PodcastSelected, currentRssFeedSelector } from "../stores";
+  PodcastSelected, currentPodcastSelector } from "../stores";
 import { Store } from "@ngrx/store";
 
 
@@ -16,11 +16,20 @@ export class PlayerContainer implements OnInit {
 
   constructor(private router:Router, private route:ActivatedRoute, private playerSvc: AudioPlayerService, private store:Store<ApplicationState>) {
 
-    this.route.params.subscribe((params:Params) => store.dispatch(new LoadPodcastAudio(params["episode"])));
-    this.source$ = store.select(currentRssFeedSelector);
+    this.route.params.subscribe((params:Params) => 
+      { let episodeGuid : string = params["episode"];
+        console.log("Dispatching to store?", episodeGuid);
+        store.dispatch(new PodcastSelected(episodeGuid));
+      }
+    );
+    this.source$ = store.select(currentPodcastSelector);
     this.source$.subscribe((podcast) => {
-        playerSvc.load(podcast);
-        store.dispatch(new PodcastSelected(podcast));
+        if(!!podcast){
+          playerSvc.load(podcast); //TODO: An effect on the AudioPlayerService
+        }else{
+          playerSvc.unload();
+        }
+        
       }
     );
   }

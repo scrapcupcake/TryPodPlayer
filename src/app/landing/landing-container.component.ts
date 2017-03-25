@@ -18,7 +18,7 @@ export class LandingContainer implements OnInit {
         let id = decodeURIComponent(params['id']);
         console.log("LandingContainer:id", id);
         this.currentFeed$ = store.select((store) => store.rssStates.find((s) => s.link === id));
-        this.currentFeed$.subscribe((feed) => store.dispatch(new RssSelected(feed)));
+        this.currentFeed$.subscribe((feed) => store.dispatch(new RssSelected(feed.link)));
     });
   }
 

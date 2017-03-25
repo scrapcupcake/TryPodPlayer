@@ -50,6 +50,11 @@ export class AudioPlayerService{
         }
     }
 
+    unload(){
+        this.currentItem = undefined;
+        this._audioPlayer.pause();
+        this._audioPlayer.src = undefined;
+    }
 
     play(){
         if(!this.playing){

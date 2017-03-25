@@ -23,9 +23,8 @@ export class Archive implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Archive:feed", this.feed);
     this.listen = this.player.currentItem;
-    this.latest = this.feed.podcasts[0];
+    this.latest =  !!this.feed ? this.feed.podcasts[0] : undefined;
     this.currentArchiveIndex = 3; //Todo: Start somewhere sensible?
   }
 
@@ -50,18 +49,21 @@ export class Archive implements OnInit {
   }
 
   get previous() : Podcast[]{
+    if(!this.latest){return [];}
     return this.feed.podcasts.filter((item,index) => {
         return index >= this.currentArchiveIndex - 3 && index < this.currentArchiveIndex;
     });
   }
 
   get current() : Podcast[]{
+    if(!this.latest){return [];}
     return this.feed.podcasts.filter((item,index) => {
         return index >= this.currentArchiveIndex && index < this.currentArchiveIndex + 3;
     });
   }
 
   get next() : Podcast[]{
+    if(!this.latest){return [];}
     return this.feed.podcasts.filter((item,index) => {
         return index >= this.currentArchiveIndex + 3 && index < this.currentArchiveIndex + 6;
     });      
