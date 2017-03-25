@@ -1,27 +1,15 @@
-# TrypodPlayer
+# TryPodPlayer
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-rc.1.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+As a final project for a UX class I'm part of, and inspired by the recent campaign by podcasters to #TryPod, I've decided to complete a project I've had brewing for a while.
 
-## Code scaffolding
+While listening to podcasts on various devices, I have had to face a foul choice: A bloated player with decent functionality that caches everything I listen to, killing my device's storage, or a web player, that actually respects how I want to listen to podcasts, one at a time then gone, recycled like so many newspapers, but which lacked much in the way of touch or navigation functionality.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
+This player seeks to change that. By allowing users to pass this player an RSS URL, and using LocalStorage to store our minimal representation of the RSS feed and the uers's preferences and state within it, we get the best of both worlds. Persistent behavior. Tiny little footprint. Podcasts downloaded fresh each time you access them, which, while not ideal for all cases, is a much safter default than 'endlessly cache and bloat'.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Feature goals for this version:
+* Remember current episode playback progress per Podcast (per User)
+* Easy to navigate touch friendly player
+* Ditto for the archive
+* That's it for this version. That's really enough.

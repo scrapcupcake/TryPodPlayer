@@ -1,0 +1,21 @@
+section {
+    display: flex;
+    width: 100%;
+    flex-flow: column nowrap;
+}
+
+header,main,footer {
+    flex: 1 1 auto;
+    margin: auto;
+    font-size: 1.5em;
+}
+
+header {
+    margin-top: 15vh;
+    font-size: 3.5em;
+}
+
+input, button{
+    font-size: 2em;
+    margin: 3rem auto;
+}

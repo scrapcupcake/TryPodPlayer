@@ -1,0 +1,16 @@
+<section class="mainSection">
+  <header>{{feed.title}}</header>
+  <main>
+    <LatestPodcast [feed]="feed"></LatestPodcast>
+    <CurrentlyPlaying [feed]="feed" *ngIf="archiveListener">
+    </CurrentlyPlaying>
+    <button (click)="navigateToArchive(feed)">
+      Browse Archive
+    </button>
+  </main>
+  <footer>
+    <a href=""><img src="assets/facebook.svg"></a>
+    <a href=""><img src="assets/twitter.svg"></a>
+    <a href=""><img src="assets/tumblr.svg"></a>
+  </footer>
+</section>

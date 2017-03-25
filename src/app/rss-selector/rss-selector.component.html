@@ -1,0 +1,19 @@
+<section>
+  <header>
+    <h1>Please enter your podcast's RSS Url below</h1>
+    <h2>It is advisable to copy and paste this URL</h2>
+    </header>
+  <main>
+    <input type="text" #urlInput (keyup.enter)="addFeed(urlInput.value)">
+    <button (click)="addFeed(urlInput.value)">Register</button>
+  </main>
+  <footer>
+    Or select from one of your previously entered Podcasts
+    <ul>
+      <li *ngFor="let feed of feeds" (click)="navigateToFeed(feed)">
+        <h1>{{feed.title}}</h1>
+        <p>{{feed.description}}</p>
+      </li>
+    </ul>
+  </footer>
+</section>

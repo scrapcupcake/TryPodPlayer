@@ -1,0 +1,47 @@
+.gradient(){
+    background: linear-gradient(to right,white 50%, grey, black 90%);
+}
+
+section {
+
+
+    header {
+        .gradient();
+    }
+
+    main {
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 80vh;
+
+        & > *{
+          flex: 1 1 auto;
+          display: block;
+        }
+
+    }
+
+    footer{
+        position:relative;
+
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        .gradient();
+
+        img {
+            display: block;
+            flex: 1 0 auto;
+            height: 2em;
+            width: 2em;
+        }
+        a:not(:first-of-type) img{
+            background: white;
+            border-radius: 5px;
+        }
+        a:last-of-type img {
+            filter: invert(100%);
+        }
+    }
+
+}

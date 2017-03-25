@@ -1,0 +1,9 @@
+.mainSection {
+    position: relative;
+    top: 1vh;
+    left: 1vw;
+    color: black;
+    background-color: white;
+    width: 98vw;
+    height: 98vh;
+}

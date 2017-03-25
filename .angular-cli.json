@@ -19,7 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "reset.css",
+        "globalstyles.css",
+        "deeppurple-amber.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -1,0 +1,18 @@
+<section class="mainSection">
+    <header>{{feed.title}} Archives</header>
+    <main>
+        <section class="previous" (click)="movePrevious()">
+            <div *ngFor="let podcast of previous">{{podcast.title}}</div>
+        </section>
+
+        <section class="current">
+            <section [routerLink]="urlFor(podcast)" *ngFor="let podcast of current">
+                <header>{{podcast.title}}</header>
+                <main>{{podcast.text}}</main>
+            </section>
+        </section>
+        <section class="next" (click)="moveNext()">
+            <div *ngFor="let podcast of next">{{podcast.title}}</div>
+        </section>
+    </main>
+</section>
