@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ReplaySubject} from 'rxjs/Rx';
-import { PlayerState } from './player.state';
-import { Podcast } from "../stores";
+import { Podcast, PlayerState, ApplicationState, PodcastMediaUpdate } from "../stores";
+import { Store } from "@ngrx/store";
 
 @Injectable()
 export class AudioPlayerService{
@@ -16,7 +16,7 @@ export class AudioPlayerService{
         return this._playing;
     }*/
 
-    constructor(){
+    constructor(private store:Store<ApplicationState>){
         this._audioPlayer = new Audio();
         this._audioPlayer.addEventListener('timeupdate', () =>{ 
                 this._playerEvents.next(this.updateFor(this._audioPlayer.currentTime));
@@ -32,12 +32,15 @@ export class AudioPlayerService{
         return !this._audioPlayer.paused && !this._audioPlayer.ended && 0 < this._audioPlayer.currentTime;
     }
 
-    private updateFor(time){
-        return {
-            url: this._audioPlayer.currentSrc, 
-            mediaDuration: this.duration, 
-            currentItem: this.currentItem, 
-            currentTime: time};
+    private updateFor(time) : PlayerState{
+        let update : PlayerState = {
+            guid: this.currentItem.guid, 
+            length: this._audioPlayer.duration,
+            progress: time,
+            completed: 0
+        };
+        this.store.dispatch(new PodcastMediaUpdate(update));
+        return update;
     }
 
     load(source:Podcast){
@@ -69,11 +72,7 @@ export class AudioPlayerService{
     private playOnLoad(){
         this._audioPlayer.addEventListener("canplay", (e) => {
             
-            this._playerEvents.next({
-                url: this._audioPlayer.currentSrc,
-                currentItem: this.currentItem, 
-                currentTime: 0, 
-                mediaDuration: this.duration});
+            this._playerEvents.next(this.updateFor(0));
 
             this._audioPlayer.play();
             this._audioPlayer.removeEventListener("canplay");

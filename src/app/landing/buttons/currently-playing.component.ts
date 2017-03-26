@@ -1,40 +1,31 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Router} from '@angular/router';
-import { AudioPlayerService } from "../../player/index";
-import { Podcast, RssState } from "../../stores/index";
+import { AudioPlayerService } from "../../player";
+import { Podcast, RssState, ApplicationState } from "../../stores";
+import { ButtonViewModel, currentDetailsSelector, getHeight } from "./button-view-model.selector";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'CurrentlyPlaying',
-  template: `<button *ngIf="listening && !listeningLatest" [routerLink]="target">{{listen.title}}<div class="cover" [style.height]="getHeight()"></div></button>`,
+  template: `<button *ngIf="shouldShow$ | async" [routerLink]="link$ | async">{{(viewModel$ | async).title}}<div class="cover" [style.height]="getHeight$ | async"></div></button>`,
   styleUrls: ['./button.less']
 })
 export class CurrentlyPlaying implements OnInit {
   @Input() feed : RssState;
-  latest : Podcast;
-  listen : Podcast;
-  target : string;
+  viewModel$ : Observable<ButtonViewModel>;
+  getHeight$ : Observable<string>;
+  link$ : Observable<string[]>;
+  shouldShow$ : Observable<boolean>;
   
-  get listening(){
-    return !!this.latest;
-  }
-
-  get listeningLatest(){
-    return this.latest.guid === this.listen.guid;
-  }
-
-  constructor(private router:Router, private player:AudioPlayerService) {
-  }
-
-  getHeight(){
-      let percentComplete = (this.player.currentTime / this.player.duration) * 100;
-      return `${percentComplete}%`;
+  constructor(private store:Store<ApplicationState>, private player:AudioPlayerService) {
   }
 
   ngOnInit() {
-    this.latest = this.feed.podcasts[0];
-    this.listen = this.player.currentItem;
-    this.target = `${this.router.url}/play/${this.listen.guid}`;
-    console.log("CurrentlyPlaying:listen", this.listen);
+    this.viewModel$ = this.store.select(currentDetailsSelector);
+    this.getHeight$ = this.viewModel$.map((v) => {return getHeight(v.progress, v.length)});
+    this.link$ = this.viewModel$.map((v) => {return ["play", v.guid]});
+    this.shouldShow$ = this.viewModel$.map((v) => !v.listeningLatest);
   }
 
 }

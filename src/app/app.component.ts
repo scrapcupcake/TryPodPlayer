@@ -7,5 +7,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./app.global.css']
 })
 export class AppComponent {
-  
+  constructor(){
+    
+  }
 }

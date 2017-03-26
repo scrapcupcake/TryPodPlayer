@@ -23,14 +23,9 @@ import { AppComponent } from './app.component';
 import { LandingComponent, LandingContainer, LatestPodcast, CurrentlyPlaying } from './landing';
 import { Archive, ArchiveContainer } from "./archive";
 import { Player, PlayerContainer, AudioPlayerService } from "./player";
+import {appRoutes, RssSelectorGuard, EpisodeSelectorGuard} from './routing';
 
 
-const appRoutes : Routes = [
-  {path: "", component: SelectorContainer},
-  {path: "podcast/:id", component: LandingContainer},
-  {path: "podcast/:id/archive", component: ArchiveContainer},
-  {path: "podcast/:id/play/:episode", component: PlayerContainer}
-];
 
 const initialState = {router:{path:window.location.pathname + window.location.search}}
 
@@ -65,6 +60,8 @@ const StoreImport = StoreModule.provideStore(
     StoreDevtoolsModule.instrumentOnlyWithExtension({})
   ],
   providers: [
+    RssSelectorGuard,
+    EpisodeSelectorGuard,
     AudioPlayerService
   ],
   bootstrap: [AppComponent]

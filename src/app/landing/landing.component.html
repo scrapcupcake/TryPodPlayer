@@ -1,5 +1,5 @@
 <section class="mainSection">
-  <header>{{feed.title}}</header>
+  <header>{{feed?.title}}</header>
   <main>
     <LatestPodcast [feed]="feed"></LatestPodcast>
     <CurrentlyPlaying [feed]="feed" *ngIf="archiveListener">

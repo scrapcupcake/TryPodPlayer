@@ -17,7 +17,6 @@ export class SelectorContainer implements OnInit {
     }
 
     ngOnInit(){
-        this.feeds$.subscribe(state => console.log("Feeds$?", state));
     }
 
     addFeed(feedUrl){

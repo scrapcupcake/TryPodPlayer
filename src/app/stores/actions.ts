@@ -1,10 +1,12 @@
 import { Action } from '@ngrx/store';
 import { RssState, Podcast } from "./rss";
+import { PlayerState } from "./index";
 
 export const LOAD_RSS_DATA = "LOAD_RSS_DATA";
 export const STORE_RSS_DATA = "STORE_RSS_DATA";
 export const RSS_SELECTED = "RSS_SELECTED";
 export const PODCAST_SELECTED = "PODCAST_SELECTED";
+export const PODCAST_MEDIA_UPDATE = "PODCAST_MEDIA_UPDATE";
 
 export class LoadRssData implements Action {
     readonly type = LOAD_RSS_DATA;
@@ -25,4 +27,8 @@ export class RssSelected implements Action{
 export class PodcastSelected implements Action {
     readonly type = PODCAST_SELECTED;
     constructor(public payload:string){} //RSS Guid
+}
+export class PodcastMediaUpdate implements Action {
+    readonly type = PODCAST_MEDIA_UPDATE;
+    constructor(public payload:PlayerState){}
 }

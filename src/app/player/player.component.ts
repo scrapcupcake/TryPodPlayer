@@ -25,13 +25,13 @@ export class Player implements AfterViewInit {
   }
 
   constructor(private player: AudioPlayerService) {
-    this.time$ = player.playerEvents$.map((e) => e.currentTime );
+    this.time$ = player.playerEvents$.map((e) => e.progress );
   }
 
   ngAfterViewInit(): void {
     this.player.playerEvents$.subscribe((e) => {
       this.slider.min = 0;
-      this.slider.max = e.mediaDuration;
+      this.slider.max = e.length;
       //console.log("Slider?", this.slider);
     });
   }
