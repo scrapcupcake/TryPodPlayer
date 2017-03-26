@@ -1,5 +1,4 @@
 import { Component, Input, Output, ViewChild, AfterViewInit, EventEmitter } from '@angular/core';
-import { PlayerState } from "./player.state";
 import { Observable } from "rxjs/Observable";
 import { AudioPlayerService } from "./audio-player.service";
 import { MdSlider } from '@angular/material';
@@ -24,7 +23,7 @@ export class Player implements AfterViewInit {
     this.player.advanceTo(value);
   }
 
-  constructor(private player: AudioPlayerService) {
+  constructor(public player: AudioPlayerService) {
     this.time$ = player.playerEvents$.map((e) => e.progress );
   }
 

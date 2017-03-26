@@ -25,14 +25,19 @@ import { Archive, ArchiveContainer } from "./archive";
 import { Player, PlayerContainer, AudioPlayerService } from "./player";
 import {appRoutes, RssSelectorGuard, EpisodeSelectorGuard} from './routing';
 
+//const appReducer = compose(localStorageSync(Object.keys(reducers), true), combineReducers)(reducers);
 
 
-const initialState = {router:{path:window.location.pathname + window.location.search}}
+const initialState = {router:{path:window.location.pathname + window.location.search}};
+const reducerTable =  { rssStates: rssReducer, uiState: uiReducer, router: routerReducer };
 
-const StoreImport = StoreModule.provideStore(
-  compose(
-    localStorageSync(['rssStates'], true),combineReducers) //TODO: Add uiState back in here.
-    ({ rssStates: rssReducer, uiState: uiReducer, router: routerReducer }),initialState);
+const appReducer = compose(localStorageSync(Object.keys(['rssStates']), true), combineReducers)(reducerTable);
+// This is required for AOT
+export function reducer(state: any, action: any) {
+  return appReducer(state, action);
+}
+
+const StoreImport = StoreModule.provideStore(reducer);
 
 @NgModule({
   declarations: [

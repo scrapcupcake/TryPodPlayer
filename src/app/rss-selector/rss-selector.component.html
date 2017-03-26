@@ -1,19 +1,21 @@
 <section>
-  <header>
-    <h1>Please enter your podcast's RSS Url below</h1>
+  <header [class.grow]="expandSearch">
+    <div class="row">
+    <h1>Enter Podcast URL</h1>
+    <form (submit)="addFeed(urlInput.value)" >
+      <input size="40" (focus)="grow()" (blur)="shring()" type="text" #urlInput (keyup.enter)="addFeed(urlInput.value)">
+      <button (click)="addFeed(urlInput.value)">Add</button>
+    </form>
+    </div>
     <h2>It is advisable to copy and paste this URL</h2>
     </header>
   <main>
-    <input type="text" #urlInput (keyup.enter)="addFeed(urlInput.value)">
-    <button (click)="addFeed(urlInput.value)">Register</button>
-  </main>
-  <footer>
-    Or select from one of your previously entered Podcasts
     <ul>
-      <li *ngFor="let feed of feeds" (click)="navigateToFeed(feed)">
+      <li *ngFor="let feed of feeds">
         <h1>{{feed.title}}</h1>
-        <p>{{feed.description}}</p>
+        <button>Read Description</button>
+        <button (click)="navigateToFeed(feed)">Listen Now</button>
       </li>
-    </ul>
-  </footer>
+    </ul>    
+  </main>
 </section>
